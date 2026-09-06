@@ -34,7 +34,12 @@ I first examined the distributions of danceability and popularity.
 
 Most tracks have danceability scores between approximately 0.4 and 0.8, with the distribution centered around 0.6.
 
-### (dist. pop plot here)
+<iframe
+  src="popularity_distribution.html"
+  width="100%"
+  height="600"
+  frameborder="0">
+</iframe>
 
 Popularity has a noticeably different distribution. Many tracks have popularity scores close to 0, while there is another concentration of tracks with popularity scores around 60 to 80.
 
