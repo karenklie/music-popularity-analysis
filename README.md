@@ -147,7 +147,12 @@ Alternative Hypothesis: The model has lower recall for hip-hop tracks than for p
 
 The observed difference in recall was approximately 0.338, with pop having the higher recall. I performed a permutation test by shuffling the genre labels 1,000 times and recalculating the difference in recall.
 
-## add plot
+<iframe
+  src="fairness_permutation.html"
+  width="100%"
+  height="600"
+  frameborder="0">
+</iframe>
 
 The simulated p-value was 0.000, meaning none of the 1,000 permutations produced a difference as large as the observed difference.
 Since the p-value is below 0.05, I reject the null hypothesis. The results provide evidence that the model performs worse at identifying popular hip-hop tracks than popular pop tracks. Therefore, according to recall, the final model does not perform equally across these two groups.
