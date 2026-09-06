@@ -50,3 +50,38 @@ The patterns differ across genres. For example, rock appears to show increasing 
 Hip-hop has the highest average danceability with 0.736, while pop has the highest average popularity with 45.26. Classical has both the lowest average danceability (0.382) and the lowest average popularity (13.52) . I also separated tracks into four danceability levels and calculated average popularity within each genre. The relationship is not consistent across genres. For example, average popularity increases as danceability increases for rock, while it decreases across the observed danceability levels for hip-hop. This provides additional evidence that genre may confound the overall relationship.
 
 
+## Assessment of Missingness
+Within the five selected genres, tempo is the only column with missing values. There are 1,100 tracks with missing tempo values and 3,900 tracks with recorded tempo values in the original five-genre subset. Tracks with missing tempo differ from tracks with recorded tempo on several observed characteristics. For example, tracks with missing tempo have an average energy of approximately 0.439, compared with 0.582 for tracks with recorded tempo.
+
+### Missingness Mechanism 
+It is possible that tempo could be NMAR if the reason a tempo value is missing depends on the true tempo itself. For example, certain tempos could potentially be more difficult to identify. Additional information about why Spotify's audio analysis did not record a tempo for a particular track could help explain the missingness and potentially make the mechanism MAR.
+
+I performed permutation tests to determine whether tempo missingness depends on observed features.
+
+Null Hypothesis: Tempo missingness does not depend on the feature being tested. Any observed difference is due to random chance.
+Alternative Hypothesis: Tempo missingness depends on the feature being tested.
+I used the absolute difference in group means as my test statistic and a significance level of 0.05.
+
+**Energy**
+For energy, the simulated p-value was 0.000. None of the 1,000 permutations produced a difference at least as large as the observed difference.
+Therefore, I reject the null hypothesis. There is strong evidence that tempo missingness is associated with a track's energy.
+
+**Track Duration**
+I repeated the test using duration_ms. This test produced a simulated p-value of approximately 0.98. Since the p-value is much greater than 0.05, I fail to reject the null hypothesis. There is not sufficient evidence that tempo missingness depends on track duration.
+
+Overall, tempo missingness depends on at least one observed variable, energy, but not every variable tested. These results are consistent with tempo being MAR rather than MCAR.
+
+## Hypothesis Testing 
+I next tested whether tracks with higher danceability tend to have higher popularity. I divided tracks into high- and low-danceability groups using the median danceability score.
+
+Null Hypothesis: High-danceability and low-danceability tracks have the same average popularity. Any observed difference is due to random chance.
+Alternative Hypothesis: High-danceability tracks have higher average popularity than low-danceability tracks.
+Test Statistic: Mean popularity of high-danceability tracks minus mean popularity of low-danceability tracks.
+Significance Level: 0.05
+
+I chose the difference in mean popularity because I am comparing the average popularity of two groups. I used a one-sided test because my alternative hypothesis specifically asks whether the high-danceability group has higher average popularity. High-danceability tracks had an average popularity of approximately 32.36, while low-danceability tracks had an average popularity of approximately 21.38. The observed difference was therefore approximately 10.98 popularity points.
+
+### plot
+
+The simulated p-value was 0.000, meaning none of the 1,000 permutations produced a difference as large as the observed difference. Since the p-value is below 0.05, I reject the null hypothesis. There is strong evidence that tracks in the high-danceability group have higher average popularity than tracks in the low-danceability group. However, this test considers all genres together. My earlier analysis showed that the relationship differs within individual genres, suggesting that genre may confound part of this overall association.
+
