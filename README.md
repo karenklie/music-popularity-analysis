@@ -7,3 +7,8 @@ Music on Spotify varies in both its audio characteristics and its popularity. In
 "Do tracks with higher danceability tend to have higher popularity, and does this relationship remain consistent when comparing tracks within individual genres?" 
 
 The original dataset contains 114,000 Spotify tracks across 114 genres. For my analysis, I focus on 4,766 unique tracks from five musically distinct genres: pop, hip-hop, rock, country, and classical. The main columns relevant to my analysis are: danceability, popularity, track_genre, energy, valence, and tempo. Genre is particularly important because different genres may naturally have different levels of both danceability and popularity. Therefore, genre might be a confounding variable. 
+
+## Data Cleaning
+I first restricted the dataset to 5 genres: pop, hip-hop, rock, country, and classical tracks. I selected these genres because they are each very different in musical styles and will allow me to compare whether the relationship between danceability and popularity changes across genres.
+
+I removed rows with missing values in danceability, popularity, or track_genre, since these variables are necessary for my analysis. I also removed duplicate tracks based on track_id. After cleaning, the dataset contains 4,766 unique tracks. 
