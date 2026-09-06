@@ -87,6 +87,13 @@ For energy, the simulated p-value was 0.000. None of the 1,000 permutations prod
 Therefore, I reject the null hypothesis. There is strong evidence that tempo missingness is associated with a track's energy.
 
 **Track Duration**
+<iframe
+  src="missingness_duration_permutation.html"
+  width="100%"
+  height="600"
+  frameborder="0">
+</iframe>
+
 I repeated the test using duration_ms. This test produced a simulated p-value of approximately 0.98. Since the p-value is much greater than 0.05, I fail to reject the null hypothesis. There is not sufficient evidence that tempo missingness depends on track duration.
 
 Overall, tempo missingness depends on at least one observed variable, energy, but not every variable tested. These results are consistent with tempo being MAR rather than MCAR.
@@ -100,8 +107,6 @@ Test Statistic: Mean popularity of high-danceability tracks minus mean popularit
 Significance Level: 0.05
 
 I chose the difference in mean popularity because I am comparing the average popularity of two groups. I used a one-sided test because my alternative hypothesis specifically asks whether the high-danceability group has higher average popularity. High-danceability tracks had an average popularity of approximately 32.36, while low-danceability tracks had an average popularity of approximately 21.38. The observed difference was therefore approximately 10.98 popularity points.
-
-### plot
 
 The simulated p-value was 0.000, meaning none of the 1,000 permutations produced a difference as large as the observed difference. Since the p-value is below 0.05, I reject the null hypothesis. There is strong evidence that tracks in the high-danceability group have higher average popularity than tracks in the low-danceability group. However, this test considers all genres together. My earlier analysis showed that the relationship differs within individual genres, suggesting that genre may confound part of this overall association.
 
