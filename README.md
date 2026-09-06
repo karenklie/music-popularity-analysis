@@ -58,6 +58,14 @@ Next, I separated this relationship by genre.
 The patterns differ across genres. For example, rock appears to show increasing popularity at higher danceability levels, while hip-hop shows a different pattern. There are also noticeable differences in both danceability and popularity between genres. This suggests that genre may be a confounding variable in the overall relationship between danceability and popularity.
 
 ### Interesting Aggregates 
+
+<iframe
+  src="genre_summary.html"
+  width="100%"
+  height="350"
+  frameborder="0">
+</iframe>
+
 Hip-hop has the highest average danceability with 0.736, while pop has the highest average popularity with 45.26. Classical has both the lowest average danceability (0.382) and the lowest average popularity (13.52) . I also separated tracks into four danceability levels and calculated average popularity within each genre. The relationship is not consistent across genres. For example, average popularity increases as danceability increases for rock, while it decreases across the observed danceability levels for hip-hop. This provides additional evidence that genre may confound the overall relationship.
 
 
@@ -119,11 +127,13 @@ Of the cleaned tracks, approximately 14.4% are popular and 85.6% are not popular
 My baseline model is a decision tree classifier using two features, danceability (quantitative) and track_genre (nominal). Since track_genre is nominal, it is transformed using one-hot encoding. Danceability is left unchanged. The preprocessing and decision tree classifier are combined into a single sklearn Pipeline. I use a maximum tree depth of 3 for the baseline model. I split the data into training and test sets, using 80% for training and 20% for testing. The model achieved an F1-score of 0.000 on the test set. This means that the baseline model was unable to correctly identify popular tracks. Therefore, I do not consider the baseline model to perform well. One possible reason could be the class imbalance in the dataset and also the limited information provided by only 2 features, danceability and genre. 
 
 ## Final Model 
-For my final model, I kept danceability and track_genre from the baseline model and added energy and valence. 
+For my final model, I kept danceability and track_genre from the baseline model and added energy and valence. I wanted to add features that could capture aspects of a song that danceability and genre alone do not capture so I transformed 2 additional features. 
 
-I transformed these 2 additional features. high_energy, which is energy is converted into a binary feature using a threshold of 0.6. This separates high-energy tracks from low-energy tracks. positive_valence, which is valence is converted into a binary feature using a threshold of 0.5. So it separates more positive-sounding tracks from less positive-sounding tracks. I selected these features because they describe different musical characteristics and adds information other than those in the baseline model. 
+First, I chose to add energy because it measures how intense and active a track sounds. I thought this could be useful because danceability does not necessarily imply that a song is energetic. A highly danceable song can still be relatively calm, while another can be very intense. My EDA also showed substantial differences in musical characteristics across genres, so including another audio characteristic could help the model distinguish tracks that have similar danceability but different overall sounds. I transformed energy to a new feature called high_energy, which is energy is converted into a binary feature using a threshold of 0.6. This separates high-energy tracks from low-energy tracks. 
 
-I continued using a decision tree classifier. To select its complexity, I tuned max_depth, which controls how deep the decision tree can grow. A tree that is too shallow may underfit the data, while a tree that is too deep may overfit.
+As for valence I transformed it to a feature called positive_valence, which is valence is converted into a binary feature using a threshold of 0.5. So it separates more positive-sounding tracks from less positive-sounding tracks. My baseline model only knew how danceable a song was and what genre it belonged to, but songs within the same genre and with similar danceability can still sound very different. I therefore added energy and valence, since both describe additional characteristics of how a track sounds that could reasonably be related to whether listeners find it appealing. 
+
+I kept danceability as a quantitative feature because it is central to my original research question, and I one-hot encoded track genre because genre is a nominal categorical variable with no natural ordering. I continued using a decision tree classifier because I did not expect the relationship between these musical characteristics and popularity to necessarily be linear. To select its complexity, I tuned max_depth, which controls how deep the decision tree can grow. A tree that is too shallow may underfit the data, while a tree that is too deep may overfit.
 
 I used GridSearchCV with 5-fold cross-validation and tested:
 1, 2, 3, 4, 5, 6, 8, 10, 15, 20, 30, 40, and None
