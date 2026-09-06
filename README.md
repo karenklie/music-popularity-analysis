@@ -90,3 +90,39 @@ For the prediction portion of my project, I predict whether a track is popular, 
 
 Of the cleaned tracks, approximately 14.4% are popular and 85.6% are not popular. This means the classes are imbalanced. A classifier that simply predicts that every track is not popular could already achieve approximately 85.6% accuracy, so accuracy alone would not be a useful evaluation metric. Instead, I will use F1-score, which considers both precision and recall for the positive class. This better evaluates how successfully the model identifies popular tracks. I did not use the original popularity column because is_popular is directly created from it, which would cause data leakage.
 
+## Baseline Model
+My baseline model is a decision tree classifier using two features, danceability (quantitative) and track_genre (nominal). Since track_genre is nominal, it is transformed using one-hot encoding. Danceability is left unchanged. The preprocessing and decision tree classifier are combined into a single sklearn Pipeline. I use a maximum tree depth of 3 for the baseline model. I split the data into training and test sets, using 80% for training and 20% for testing. The model achieved an F1-score of 0.000 on the test set. This means that the baseline model was unable to correctly identify popular tracks. Therefore, I do not consider the baseline model to perform well. One possible reason could be the class imbalance in the dataset and also the limited information provided by only 2 features, danceability and genre. 
+
+## Final Model 
+For my final model, I kept danceability and track_genre from the baseline model and added energy and valence. 
+
+I transformed these 2 additional features. high_energy, which is energy is converted into a binary feature using a threshold of 0.6. This separates high-energy tracks from low-energy tracks. positive_valence, which is valence is converted into a binary feature using a threshold of 0.5. So it separates more positive-sounding tracks from less positive-sounding tracks. I selected these features because they describe different musical characteristics and adds information other than those in the baseline model. 
+
+I continued using a decision tree classifier. To select its complexity, I tuned max_depth, which controls how deep the decision tree can grow. A tree that is too shallow may underfit the data, while a tree that is too deep may overfit.
+
+I used GridSearchCV with 5-fold cross-validation and tested:
+1, 2, 3, 4, 5, 6, 8, 10, 15, 20, 30, 40, and None
+
+The best hyperparameter was max_depth = 20, and the best cross-validation F1-score was approximately 0.266. On the unseen test set, the final model achieved an F1-score of 0.228, compared with 0.000 for the baseline model. Therefore, the final model performs better than the baseline at identifying popular tracks. Adding information about energy and valence and tuning the decision tree improved its performance, although an F1-score of 0.228 indicates that there is still room for improvement.
+
+## Fairness Analysis 
+For fairness analysis, I wanted to investigate whether my final model performs similarly for pop and hip-hop tracks.
+
+Group X: Pop tracks
+Group Y: Hip-hop tracks
+Evaluation Metric: Recall
+Test Statistic: Recall for pop tracks minus recall for hip-hop tracks
+Significance Level: 0.05
+
+I chose recall because it measures the proportion of actually popular tracks that the model successfully identifies. This allows me to compare whether the model is equally successful at detecting popular songs in the two genres.
+
+Null Hypothesis: The model has roughly the same recall for pop and hip-hop tracks, and any observed difference is due to random chance.
+
+Alternative Hypothesis: The model has lower recall for hip-hop tracks than for pop tracks.
+
+The observed difference in recall was approximately 0.338, with pop having the higher recall. I performed a permutation test by shuffling the genre labels 1,000 times and recalculating the difference in recall.
+
+## add plot
+
+The simulated p-value was 0.000, meaning none of the 1,000 permutations produced a difference as large as the observed difference.
+Since the p-value is below 0.05, I reject the null hypothesis. The results provide evidence that the model performs worse at identifying popular hip-hop tracks than popular pop tracks. Therefore, according to recall, the final model does not perform equally across these two groups.
