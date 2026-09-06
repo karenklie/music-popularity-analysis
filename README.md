@@ -64,6 +64,7 @@ Hip-hop has the highest average danceability with 0.736, while pop has the highe
 ## Assessment of Missingness
 Within the five selected genres, tempo is the only column with missing values. There are 1,100 tracks with missing tempo values and 3,900 tracks with recorded tempo values in the original five-genre subset. Tracks with missing tempo differ from tracks with recorded tempo on several observed characteristics. For example, tracks with missing tempo have an average energy of approximately 0.439, compared with 0.582 for tracks with recorded tempo.
 
+
 ### Missingness Mechanism 
 It is possible that tempo could be NMAR if the reason a tempo value is missing depends on the true tempo itself. For example, certain tempos could potentially be more difficult to identify. Additional information about why Spotify's audio analysis did not record a tempo for a particular track could help explain the missingness and potentially make the mechanism MAR.
 
@@ -74,6 +75,14 @@ Alternative Hypothesis: Tempo missingness depends on the feature being tested.
 I used the absolute difference in group means as my test statistic and a significance level of 0.05.
 
 **Energy**
+
+<iframe
+  src="missingness_energy_permutation.html"
+  width="100%"
+  height="600"
+  frameborder="0">
+</iframe>
+
 For energy, the simulated p-value was 0.000. None of the 1,000 permutations produced a difference at least as large as the observed difference.
 Therefore, I reject the null hypothesis. There is strong evidence that tempo missingness is associated with a track's energy.
 
