@@ -25,7 +25,12 @@ I removed rows with missing values in danceability, popularity, or track_genre, 
 ### Univariate Analysis
 I first examined the distributions of danceability and popularity.
 
-### (dist. danceability plot here)
+<iframe
+  src="danceability.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 Most tracks have danceability scores between approximately 0.4 and 0.8, with the distribution centered around 0.6.
 
