@@ -85,3 +85,8 @@ I chose the difference in mean popularity because I am comparing the average pop
 
 The simulated p-value was 0.000, meaning none of the 1,000 permutations produced a difference as large as the observed difference. Since the p-value is below 0.05, I reject the null hypothesis. There is strong evidence that tracks in the high-danceability group have higher average popularity than tracks in the low-danceability group. However, this test considers all genres together. My earlier analysis showed that the relationship differs within individual genres, suggesting that genre may confound part of this overall association.
 
+## Framing a Prediction Problem
+For the prediction portion of my project, I predict whether a track is popular, where a popular track is defined as having a Spotify popularity score of at least 70. The response variable, is_popular, has two possible outcomes: popular or not popular. Therefore, this is a binary classification problem.
+
+Of the cleaned tracks, approximately 14.4% are popular and 85.6% are not popular. This means the classes are imbalanced. A classifier that simply predicts that every track is not popular could already achieve approximately 85.6% accuracy, so accuracy alone would not be a useful evaluation metric. Instead, I will use F1-score, which considers both precision and recall for the positive class. This better evaluates how successfully the model identifies popular tracks. I did not use the original popularity column because is_popular is directly created from it, which would cause data leakage.
+
