@@ -44,15 +44,16 @@ Most tracks have danceability scores between approximately 0.4 and 0.8, with the
 Popularity has a noticeably different distribution. Many tracks have popularity scores close to 0, while there is another concentration of tracks with popularity scores around 60 to 80.
 
 ### Bivariate Analysis 
-I examined the relationship between danceability and popularity.
-
-### danceabilty x pop plot here 
-
-The overall scatter plot does not show a very strong relationship between danceability and popularity. However, many tracks with higher popularity have moderate to high danceability. There are also many tracks with popularity close to 0 across a wide range of danceability scores.
+I examined the relationship between danceability and popularity. The overall scatter plot does not show a very strong relationship between danceability and popularity. However, many tracks with higher popularity have moderate to high danceability. There are also many tracks with popularity close to 0 across a wide range of danceability scores.
 
 Next, I separated this relationship by genre.
 
-### by genre plot here 
+<iframe
+  src="danceability_vs_popularity_by_genre.html"
+  width="100%"
+  height="600"
+  frameborder="0">
+</iframe>
 
 The patterns differ across genres. For example, rock appears to show increasing popularity at higher danceability levels, while hip-hop shows a different pattern. There are also noticeable differences in both danceability and popularity between genres. This suggests that genre may be a confounding variable in the overall relationship between danceability and popularity.
 
